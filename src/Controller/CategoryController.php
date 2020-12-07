@@ -76,7 +76,6 @@ class CategoryController extends AbstractController
             ->findBy(
                 ['category' => $category],
                 ['id' => 'DESC'],
-                3
             );
 
         return $this->render('category/show.html.twig', [
