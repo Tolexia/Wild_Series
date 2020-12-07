@@ -15,7 +15,7 @@
         <div>
             <h3> Episodes </h3>
             {% for episode in episodes %} 
-                    <a href = "/programs/{programId}/season/{seasonId}/episodes/{episodeId}"><p>{{episode.title}}</p>
+                    <a href="{{ path("program_episode_show", {"program": program.id, "season": season.id, "episode": episode.id })}}"><p>{{episode.title}}</p>
             {% endfor %}
         </div>
     </div>
