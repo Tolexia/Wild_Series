@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Entity\Episode;
 
 /**
 * @Route("/programs", name="program_")
@@ -46,7 +47,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @route ("/{program}/seasons/{season}", requirements={"programId"="\d+", "seasonId"="\d+"}, name = "season_show")
+     * @route ("/{program}/seasons/{season}", requirements={"program"="\d+", "season"="\d+"}, name = "season_show")
      */
     public function showSeason(Program $program, Season $season): Response
     {
@@ -55,6 +56,15 @@ class ProgramController extends AbstractController
 
         return $this->render('program/showSeason.html.twig', [
             'program' => $program, 'season' => $season, 'episodes' => $episodes
+        ]);
+    }
+    /**
+     * @route ("/{program}/seasons/{season}/episodes/{episode}", requirements={"program"="\d+", "season"="\d+", "episode"="\d+"}, name = "episode_show" )
+     */
+    public function showEpisode(Program $program, Season $season, Episode $episode)
+    {
+        return $this->render('program/showEpisode.html.twig', [
+            'program' => $program, 'season' => $season, 'episode' => $episode
         ]);
     }
 }
