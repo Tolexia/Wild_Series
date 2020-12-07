@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1> {{program.title}} </h1>
+    <img src="{{program.poster}}">
+    <p>
+        Catégorie : {{ program.category.name }}
+    </p>
+    <p>  
+        {{program.summary}}
+    </p>
+    <div>
+        <h2>Saison {{season.number}}</h2>
+        <p>Année de début de diffusion: {{season.year}}</p>
+        <p>Description: {{season.description}}</p>
+        <div>
+            <h3> Episodes </h3>
+            {% for episode in episodes %} 
+                    <a href = "/programs/{programId}/season/{seasonId}/episodes/{episodeId}"><p>{{episode.title}}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <a href = "/programs/{{program.id}}">Retour à la série</a>
+{% endblock %}
