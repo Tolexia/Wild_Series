@@ -16,3 +16,6 @@ https://www.loom.com/share/2dacfc4be67a4b53a8f5483e72165080
 
 video of CRUD for Episode Entity:
 https://www.loom.com/share/b8572842da6847be8c30412db4dfaabe
+
+video for form validation:
+https://www.loom.com/share/7dc189f42c60401eb290dbfa70ef5ac7
