@@ -69,7 +69,7 @@ class CategoryController extends AbstractController
             ->getRepository(Program::class)
             ->findBy(
                 ['category' => $category],
-                ['id' => 'DESC'],
+                ['id' => 'DESC']
             );
 
         return $this->render('category/show.html.twig', [
