@@ -13,3 +13,6 @@ https://www.loom.com/share/80f0bc575cda43df8cdd767c9ea6043c
 
 video of CRUD for Season Entity:
 https://www.loom.com/share/2dacfc4be67a4b53a8f5483e72165080
+
+video of CRUD for Episode Entity:
+https://www.loom.com/share/b8572842da6847be8c30412db4dfaabe
