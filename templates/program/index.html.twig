@@ -4,7 +4,7 @@
    {% for program in programs %}
       <div>
          <h2>
-            {{program.title}}
+            <a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a>
          </h2>
          <img src="{{program.poster}}">
          <p>
