@@ -10,3 +10,6 @@ https://www.loom.com/share/038420481f8a4aad9f6e933ab8821d82
 
 Video of adding a Category or a Show :
 https://www.loom.com/share/80f0bc575cda43df8cdd767c9ea6043c
+
+video of CRUD for Season Entity:
+https://www.loom.com/share/2dacfc4be67a4b53a8f5483e72165080
