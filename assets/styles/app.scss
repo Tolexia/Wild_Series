@@ -6,3 +6,8 @@ $theme-colors: (
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+img {
+  width:300px;
+  height:auto;
+}
