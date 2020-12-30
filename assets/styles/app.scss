@@ -7,7 +7,36 @@ $theme-colors: (
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
 
+body {
+  background-color: mix(black, $cyan, 60%); 
+  color: #f8c91b;
+}
 img {
   width:300px;
   height:auto;
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
+  color:$white;
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+  color: #f8c91b;
+}
+
+.program-list {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.program-list .program-item {
+  margin-right:2rem;
+ 
+}
+
+.card {
+  background-color:mix(black, $cyan, 40%);
 }

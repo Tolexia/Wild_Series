@@ -2,6 +2,20 @@
 
 {% block body %}
     <h1>
-        Bienvenue !
+        Liste des séries
     </h1>
+    <ul class = "program-list">
+    {% for program in programs %}
+    <li class = "program-item">  
+        <div class="card" style="width: 18rem;">
+            <img src="{{program.poster}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ program.title }}</h5>
+                <p class="card-text"> Catégorie : {{ program.category.name }}</p>
+                <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">En savoir plus</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+    <ul>
 {% endblock %}

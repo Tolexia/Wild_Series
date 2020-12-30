@@ -8,6 +8,14 @@
     <p>  
         {{program.summary}}
     </p>
+    <h2>Acteurs :</h2>
+        <ul>
+            {% for actor in program.actors %}
+                <li>{{ actor.firstname }} {{ actor.lastname }}</li>
+            {% else %}
+                <li>Aucun acteur pour cette série</li>
+            {% endfor %}
+        </ul>
     <div>
         <h2>Saisons</h2>
         {% for season in seasons %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ actor.firstname }} {{ actor.lastname }}{% endblock %}
+
+{% block body %}
+    <h1>{{ actor.firstname }} {{ actor.lastname }}</h1>
+
+
+    <a href="{{ path('actor_index') }}">Liste des acteurs</a>
+
+    <a href="{{ path('actor_edit', {'id': actor.id}) }}">Modifier la fiche</a>
+
+    {{ include('actor/_delete_form.html.twig') }}
+{% endblock %}
