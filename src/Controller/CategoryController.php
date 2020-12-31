@@ -10,6 +10,7 @@ use App\Entity\Program;
 use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\FileUploader;
 
 /**
 * @Route("/categories", name="category_")
@@ -33,16 +34,22 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader) : Response
     {
         $category = new Category();
-
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imgFile = $form->get('img')->getData();
+            if ($imgFile) {
+                $imgFileName = $fileUploader->upload($imgFile);
+                $category->setImg($imgFileName);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();
+            }
             return $this->redirectToRoute('category_index');
         }
 
@@ -52,19 +59,10 @@ class CategoryController extends AbstractController
     }
 
     /**
-    * @Route("/{categoryName}", requirements={"id"="\d+"}, methods={"GET"}, name="show")
+    * @Route("/{name}", requirements={"id"="\d+"}, methods={"GET"}, name="show")
     */
-    public function show(string $categoryName):Response
+    public function show(Category $category):Response
     {
-        if (!$categoryName) {
-            throw $this
-                ->createNotFoundException('No '.$categoryName.' has been sent to find a category in category\'s table.');
-        }
-
-        $category = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findBy(['name' => $categoryName]);
-
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findBy(
@@ -73,7 +71,7 @@ class CategoryController extends AbstractController
             );
 
         return $this->render('category/show.html.twig', [
-            'categoryName' => $categoryName,
-            'programs' => $programs]);
+            'programs' => $programs,
+            "category" => $category]);
     }
 }
