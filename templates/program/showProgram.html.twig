@@ -11,21 +11,27 @@
     <h2>Acteurs :</h2>
         <ul>
             {% for actor in program.actors %}
-                <li>{{ actor.firstname }} {{ actor.lastname }}</li>
+                <li>
+                    <h3>
+                        <a href= "{{ path("actor_show", { id: actor.id }) }}">{{ actor.firstname }} {{ actor.lastname }}</a>
+                    </h3>
+                </li>
             {% else %}
                 <li>Aucun acteur pour cette série</li>
             {% endfor %}
         </ul>
     <div>
-        <h2>Saisons</h2>
+        <h2>SAISONS</h2>
         {% for season in seasons %}
             <div>
-                <a href="{{ path("program_season_show", {"program": program.id, "season": season.id })}}"><h3>Saison {{season.number}}</h3></a>
-                <p>Année de début de diffusion:{{season.year}}</p>
-                <p>Description: {{season.description}}
+                <a href="{{ path("program_season_show", {"program": program.id, "season": season.id })}}"><h3><i>Saison {{season.number}}</i></h3></a>
+                <p><strong>Année de début de diffusion:</strong> {{season.year}}</p>
+                <p><strong>Description:</strong> {{season.description}}</p>
             </div>
         {% endfor %}
     </div>
-    {{ include('program/_delete_form.html.twig') }}
-    <a href = "/programs">Retour à la liste des séries</a>
+    <section class = "btn-section">
+        <a class = "btn" href = "/programs">Retour à la liste des séries</a>
+        {{ include('program/_delete_form.html.twig') }}
+    </section>
 {% endblock %}
