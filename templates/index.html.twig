@@ -7,15 +7,15 @@
     <ul class = "program-list">
     {% for program in programs %}
     <li class = "program-item">  
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 20rem;">
             <img src="{{program.poster}}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">{{ program.title }}</h5>
-                <p class="card-text"> Catégorie : {{ program.category.name }}</p>
+                <h5 class="card-title"><strong>{{ program.title }}</strong></h5>
+                <p class="card-text"><i> Catégorie : {{ program.category.name }}</i></p>
                 <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">En savoir plus</a>
             </div>
         </div>
     </li>
     {% endfor %}
-    <ul>
+    </ul>
 {% endblock %}

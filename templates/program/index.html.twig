@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block body %}
-   <h1>Index</h1>
+   <h1>Toutes les séries</h1>
    {% for program in programs %}
       <div>
          <h2>
@@ -8,17 +8,17 @@
          </h2>
          <img src="{{program.poster}}">
          <p>
-            Catégorie : {{ program.category.name }}
+            <strong> Catégorie</strong> : {{ program.category.name }}
          </p>
          <p>  
-            {{program.summary}}
+            <strong> Synopsis</strong> : {{program.summary}}
          </p>
       </div>
       {% else %}
         Aucune série trouvée.
    {% endfor %}}
-       <a href = "{{ path("program_new") }}">Ajoutez une série</a>
-    <a href="/">
-        Retour à l'accueil
-    </a>
+   <section class = "btn-section">
+      <a class = "btn" href = "{{ path("program_new") }}">Ajoutez une série</a>
+      <a class = "btn" href="/">Retour à l'accueil</a>
+   </section>
 {% endblock %}

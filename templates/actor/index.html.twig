@@ -1,37 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actor index{% endblock %}
+{% block title %}Liste des acteurs{% endblock %}
 
 {% block body %}
-    <h1>Actor index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for actor in actors %}
-            <tr>
-                <td>{{ actor.id }}</td>
-                <td>{{ actor.firstname }}</td>
-                <td>{{ actor.lastname }}</td>
-                <td>
-                    <a href="{{ path('actor_show', {'id': actor.id}) }}">show</a>
-                    <a href="{{ path('actor_edit', {'id': actor.id}) }}">edit</a>
-                </td>
-            </tr>
+    <h1>Liste des acteurs</h1>
+    <ul>
+        {% for actor in actors %} 
+            <div>
+                <li>
+                    <span>{{ actor.firstname }} {{ actor.lastname }}</span>
+                    <a class = "btn" href="{{ path('actor_show', {'id': actor.id}) }}">Afficher</a>
+                    <a class = "btn" href="{{ path('actor_edit', {'id': actor.id}) }}">Modifier</a>
+                </li>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+                <li>Aucun acteur trouvé</li>
         {% endfor %}
-        </tbody>
-    </table>
+    </ul>
 
-    <a href="{{ path('actor_new') }}">Create new</a>
+    <a class = "btn" href="{{ path('actor_new') }}">AJOUTER ACTEUR</a>
 {% endblock %}
