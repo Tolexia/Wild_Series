@@ -44,7 +44,8 @@ class ProgramController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($program);
             $entityManager->flush();
-            return $this->redirectToRoute('program_index');
+
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('program/new.html.twig', [
