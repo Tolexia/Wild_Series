@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Season{% endblock %}
+{% block title %}Nouvelle Saison{% endblock %}
 
 {% block body %}
-    <h1>Create new Season</h1>
+    <h1>Nouvelle Saison</h1>
 
     {{ include('season/_form.html.twig') }}
-
-    <a href="{{ path('season_index') }}">back to list</a>
+    <section class = "btn-section">
+        <a class = "btn" href="{{ app.request.headers.get('referer') }}">Page Précédente</a>
+    </section>
 {% endblock %}

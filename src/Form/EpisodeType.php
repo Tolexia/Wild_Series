@@ -6,16 +6,20 @@ use App\Entity\Episode;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EpisodeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('number')
-            ->add('synopsis')
-            ->add('season', null, ['choice_label' => 'number'])
+            ->add('title', TextType::class, ['label' => "Titre"])
+            ->add('number', IntegerType::class, ['label' => "Numéro de l'épisode"])
+            ->add('synopsis', TextareaType::class, ['label' => "Synopsis"])
+            ->add('season', null, ['choice_label' => 'number', 'label' => "Saison"])
+            ->add('program', null, ['choice_label' => 'title', 'label' => "Série"])
         ;
     }
 

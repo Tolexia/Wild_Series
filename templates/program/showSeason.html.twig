@@ -1,25 +1,32 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <h1> {{program.title}} </h1>
-    <img src="{{program.poster}}">
-    <p>
-        Catégorie : {{ program.category.name }}
-    </p>
+    <header>
+        <h1> {{program.title}} </h1>
+        <img  src="{{program.poster}}">
+    </header>
+    <h3>
+        <strong>Catégorie</strong> : {{ program.category.name }}
+    </h3>
     <p>  
-        {{program.summary}}
+        <i>{{program.summary}}</i>
     </p>
     <div>
         <h2>Saison {{season.number}}</h2>
-        <p>Année de début de diffusion: {{season.year}}</p>
-        <p>Description: {{season.description}}</p>
+        <p><strong>Année de début de diffusion</strong>: {{season.year}}</p>
+        <p><strong>Description</strong>: {{season.description}}</p>
         <div>
             <h3> Episodes </h3>
             {% for episode in episodes %} 
                     <a href="{{ path("program_episode_show", {"program": program.id, "season": season.id, "episode": episode.id })}}"><p>{{episode.title}}</p>
+            {% else %}
+                Aucun épisode trouvé
             {% endfor %}
         </div>
     </div>
     <section class = "btn-section">
-    <a class = "btn" href = "/programs/{{program.id}}">Retour à la série</a>
+        <a class = "btn" href = "{{ path("episode_new") }}">Ajouter un épisode</a>
+        <a class = "btn" href="{{ path('season_edit', {'id': season.id}) }}">Modifier la saison</a>
+        <a class = "btn" href = "/programs/{{program.id}}">Retour à la série</a>
+        {{ include('season/_delete_form.html.twig') }}
     </section>
 {% endblock %}

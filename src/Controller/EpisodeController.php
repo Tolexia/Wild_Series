@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Program;
 
 /**
  * @Route("/episode")
@@ -28,7 +29,7 @@ class EpisodeController extends AbstractController
     /**
      * @Route("/new", name="episode_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new( Request $request): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -39,7 +40,14 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
-            return $this->redirectToRoute('episode_index');
+            $season = $form->get('season')->getData();
+            $program = $form->get('program')->getData();
+            $programId = $program->getId();
+            $seasonId = $season->getId();
+            $episodeId = $episode->getId();
+
+            return $this->redirectToRoute('program_episode_show', ['program' => $programId,'season' => $seasonId, 'episode' => $episodeId ]);
+        
         }
 
         return $this->render('episode/new.html.twig', [
@@ -69,7 +77,13 @@ class EpisodeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('episode_index');
+            $season = $form->get('season')->getData();
+            $program = $season->getProgram();
+            $programId = $program->getId();
+            $seasonId = $season->getId();
+            $episodeId = $episode->getId();
+
+            return $this->redirectToRoute('program_episode_show', ['program' => $programId,'season' => $seasonId, 'episode' => $episodeId ]);
         }
 
         return $this->render('episode/edit.html.twig', [
@@ -88,7 +102,17 @@ class EpisodeController extends AbstractController
             $entityManager->remove($episode);
             $entityManager->flush();
         }
+        $season = $episode->getSeason();
+        $program = $season->getProgram();
+        //$programId = $program->getId();
+        $episodes = $season->getEpisodes();
 
-        return $this->redirectToRoute('episode_index');
+        return $this->redirectToRoute(
+            'program_season_show', [
+                'program' => $program,
+                'season' => $season,
+                'episodes' => $episodes
+            ]
+        );
     }
 }

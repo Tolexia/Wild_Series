@@ -17,7 +17,7 @@ class ProgramType extends AbstractType
             ->add('title', TextType::class, ['label' => "Titre de la série"])
             ->add('summary', TextareaType::class, ['label' => "Résumé"])
             ->add('poster', TextType::class, ['label' => "Affiche (URL)"])
-            ->add('category', null, ['choice_label' => 'name'])
+            ->add('category', null, ['choice_label' => 'name', 'label' => "Catégorie"])
         ;
     }
 

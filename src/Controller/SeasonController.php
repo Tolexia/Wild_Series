@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Program;
 
 /**
  * @Route("/season")
@@ -30,16 +31,22 @@ class SeasonController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $season = new Season();
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($season);
             $entityManager->flush();
 
-            return $this->redirectToRoute('season_index');
+            $program = $form->get('program')->getData();
+            $programId = $program->getId();
+            $seasonId = $season->getId();
+
+            return $this->redirectToRoute('program_season_show', ['program' => $programId, 'season' => $seasonId ]);
         }
 
         return $this->render('season/new.html.twig', [
@@ -48,15 +55,6 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="season_show", methods={"GET"})
-     */
-    public function show(Season $season): Response
-    {
-        return $this->render('season/show.html.twig', [
-            'season' => $season,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="season_edit", methods={"GET","POST"})
@@ -68,8 +66,12 @@ class SeasonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            
+            $program = $form->get('program')->getData();
+            $programId = $program->getId();
+            $seasonId = $season->getId();
 
-            return $this->redirectToRoute('season_index');
+            return $this->redirectToRoute('program_season_show', ['program' => $programId, 'season' => $seasonId ]);
         }
 
         return $this->render('season/edit.html.twig', [
@@ -88,7 +90,13 @@ class SeasonController extends AbstractController
             $entityManager->remove($season);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('season_index');
+        $program = $season->getProgram();
+        $programId = $program->getId();
+        $seasons = $program->getSeason();
+        return $this->redirectToRoute('program_show', [
+            'id' => $programId, 
+            'program' => $program,
+            'seasons' => $seasons
+        ]);
     }
 }
