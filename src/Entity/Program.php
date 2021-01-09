@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Season;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -61,10 +62,16 @@ class Program
      */
     private $actors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="program", orphanRemoval=true)
+     */
+    private $episodes;
+
     public function __construct()
     {
         $this->number = new ArrayCollection();
         $this->actors = new ArrayCollection();
+        $this->episodes = new ArrayCollection();
     }
 
 
@@ -174,6 +181,36 @@ class Program
     {
         if ($this->actors->removeElement($actor)) {
             $actor->removeProgram($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Episode[]
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->episodes;
+    }
+
+    public function addEpisode(Episode $episode): self
+    {
+        if (!$this->episodes->contains($episode)) {
+            $this->episodes[] = $episode;
+            $episode->setProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episode $episode): self
+    {
+        if ($this->episodes->removeElement($episode)) {
+            // set the owning side to null (unless already changed)
+            if ($episode->getProgram() === $this) {
+                $episode->setProgram(null);
+            }
         }
 
         return $this;

@@ -21,6 +21,11 @@ img :not(.banner) {
   width:300px;
   height:auto;
 }
+
+img {
+  max-width: 20vw;
+}
+
 .banner {
   border-radius: 5px;
   -webkit-box-shadow: 0px 3px 20px 0px rgba(0,0,0,0.75);
@@ -131,3 +136,11 @@ h2 {
   margin-bottom: 3vh;
 }
 
+h1, h2, h3, h4 {
+  margin-left: 1vw;
+}
+
+
+div :not(.card-body) p {
+  margin-left: 2vw;
+}

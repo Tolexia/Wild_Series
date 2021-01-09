@@ -1,12 +1,14 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <h1> {{program.title}} </h1>
-    <img src="{{program.poster}}">
-    <p>
-        Catégorie : {{ program.category.name }}
-    </p>
+    <header>
+        <h1> {{program.title}} </h1>
+        <img src="{{program.poster}}">
+    </header>
+    <h3>
+        <strong>Catégorie</strong> : {{ program.category.name }}
+    </h3>
     <p>  
-        {{program.summary}}
+        <i>{{program.summary}}</i>
     </p>
     <h2>Acteurs :</h2>
         <ul>
@@ -28,9 +30,12 @@
                 <p><strong>Année de début de diffusion:</strong> {{season.year}}</p>
                 <p><strong>Description:</strong> {{season.description}}</p>
             </div>
+         {% else %}
+                <p>Aucune saison pour cette série</p>
         {% endfor %}
     </div>
     <section class = "btn-section">
+        <a class = "btn" href = "{{ path("season_new") }}">Ajouter une saison</a>
         <a class = "btn" href = "/programs">Retour à la liste des séries</a>
         {{ include('program/_delete_form.html.twig') }}
     </section>

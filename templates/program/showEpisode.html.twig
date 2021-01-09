@@ -1,11 +1,16 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<div>
+<header>
     <h1>{{program.title}}<h1>
     <img src="{{program.poster}}">
-</div>
+</header>
 <div>
-<h2>Saison {{season.number}}</h2>
-<h3>Episode {{episode.number}} : {{episode.title}}</h3>
-<p>Synopsis: {{episode.synopsis}}</p>
+    <h2><strong>Saison</strong> {{season.number}}</h2>
+    <h3><strong>Episode</strong> {{episode.number}} : {{episode.title}}</h3>
+    <p><i>{{episode.synopsis}}</i></p>
+</div>
+<section class = "btn-section">
+        <a class = "btn" href = "{{ path("episode_new") }}">Ajouter un épisode</a>
+        {{ include('episode/_delete_form.html.twig') }}
+</section>
 {% endblock %}

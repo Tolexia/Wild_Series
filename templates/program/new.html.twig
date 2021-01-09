@@ -5,4 +5,5 @@
     {{ form_widget(form) }}
     <input class = "btn" type='submit' value='Ajouter une série'>
     {{ form_end(form) }}
+    <a class = "btn" href="{{ app.request.headers.get('referer') }}">Page Précédente</a>
 {% endblock %}
