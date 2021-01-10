@@ -26,3 +26,6 @@ https://www.loom.com/share/7dc189f42c60401eb290dbfa70ef5ac7
 
 video of navigating from actor page to a tv show they played in and reverse:
 https://www.loom.com/share/8991d127b9664fc7add7d468627ca37d
+
+Adding a new actor to DB linked to a tv show and displaying them in tv show details page :
+https://www.loom.com/share/8340d44aca95421481c4605f575a85b2

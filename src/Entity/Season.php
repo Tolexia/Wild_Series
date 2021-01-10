@@ -21,7 +21,7 @@ class Season
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="number")
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="program")
      * @ORM\JoinColumn(nullable=false)
      */
     private $program;
