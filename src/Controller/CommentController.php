@@ -77,12 +77,19 @@ class CommentController extends AbstractController
      */
     public function delete(Request $request, Comment $comment): Response
     {
+        $episode = $comment->getEpisode();
+        $season = $episode->getSeason();
+        $program = $season->getProgram();
+
+        $episodeId = $episode->getId();
+        $seasonId = $season->getId();
+        $programId = $program->getId();
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('comment_index');
+        return $this->redirectToRoute('program_episode_show', ['program' => $programId, 'season' => $seasonId, 'episode' => $episodeId]);
     }
 }
