@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EpisodeType extends AbstractType
 {
@@ -18,7 +19,10 @@ class EpisodeType extends AbstractType
             ->add('title', TextType::class, ['label' => "Titre"])
             ->add('number', IntegerType::class, ['label' => "Numéro de l'épisode"])
             ->add('synopsis', TextareaType::class, ['label' => "Synopsis"])
-            ->add('season', null, ['choice_label' => 'number', 'label' => "Saison"])
+            ->add('season', null, [
+                'choice_label' => 'SeasonAndProgram', 
+                'label' => "Saison"
+            ])
             ->add('program', null, ['choice_label' => 'title', 'label' => "Série"])
         ;
     }

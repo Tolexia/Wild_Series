@@ -29,3 +29,6 @@ https://www.loom.com/share/8991d127b9664fc7add7d468627ca37d
 
 Adding a new actor to DB linked to a tv show and displaying them in tv show details page :
 https://www.loom.com/share/8340d44aca95421481c4605f575a85b2
+
+Signing in & add+delete comment :
+https://www.loom.com/share/969a2a8031674b19b882ddfe05940581
