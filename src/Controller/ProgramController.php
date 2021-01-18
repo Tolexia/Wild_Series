@@ -11,6 +11,8 @@ use App\Entity\Episode;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ProgramType;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 /**
 * @Route("/programs", name="program_")
@@ -76,16 +78,7 @@ class ProgramController extends AbstractController
      */
     public function showSeason(Program $program, Season $season): Response
     {
-        
-        /*$programSeason = $this->getDoctrine()
-            ->getRepository(Season::class)
-            ->findOneBy(
-                [
-                    'program' => $program,
-                    'number' => $season->getNumber()
-                ]
-            );*/
-        
+            
         $episodes = $season->getEpisodes();
 
         return $this->render('program/showSeason.html.twig', [
@@ -95,27 +88,28 @@ class ProgramController extends AbstractController
     /**
      * @route ("/{program}/seasons/{season}/episodes/{episode}", requirements={"program"="\d+", "season"="\d+", "episode"="\d+"}, name = "episode_show" )
      */
-    public function showEpisode(Program $program, Season $season, Episode $episode)
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request): Response
     {
-        $programSeason = $this->getDoctrine()
-            ->getRepository(Season::class)
-            ->findOneBy(
-                [
-                    'program' => $program,
-                    'number' => $season->getNumber()
-                ]
-            );
+        $comments = $episode->getComments();
 
-        $seasonEpisode = $this->getDoctrine()
-        ->getRepository(Episode::class)
-        ->findOneBy(
-            [
-                'season' => $programSeason,
-                'number' => $episode->getNumber()
-            ]
-        );
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser(); // null or UserInterface, if logged in
+            // ... do whatever you want with $user
+            $comment->setAuthor($user);
+            $comment->setEpisode($episode);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+     
+            return $this->redirectToRoute('program_episode_show', ['program' => $program->getId(), 'season' => $season->getId(), 'episode' => $episode->getId()]);
+        }
+
         return $this->render('program/showEpisode.html.twig', [
-            'program' => $program, 'season' =>  $programSeason, 'episode' => $seasonEpisode
+            'program' => $program, 'season' =>  $season, 'episode' => $episode, 'comments' => $comments, 'form' => $form->createView()
         ]);
     }
 

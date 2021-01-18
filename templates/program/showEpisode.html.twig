@@ -9,8 +9,20 @@
     <h3><strong>Episode</strong> {{episode.number}} : {{episode.title}}</h3>
     <p><i>{{episode.synopsis}}</i></p>
 </div>
+<div>
+    {% for comment in comments %}
+        <h4>{{comment.rate}}</h4>
+        <p>{{comment.comment}}</p>
+    {% else %}
+        Pas de commentaires pour cet épisode
+    {% endfor %}
+    {% if app.user %}
+         {{ include('comment/_form.html.twig') }}
+    {% endif %}
+</div>  
 <section class = "btn-section">
-        <a class = "btn" href = "{{ path("episode_new") }}">Ajouter un épisode</a>
-        {{ include('episode/_delete_form.html.twig') }}
+    <a class = "btn" href = "{{ path('comment_new')}}">Ajouter un commentaire</a>
+    <a class = "btn" href = "{{ path("episode_new") }}">Ajouter un épisode</a>
+    {{ include('episode/_delete_form.html.twig') }}
 </section>
 {% endblock %}
